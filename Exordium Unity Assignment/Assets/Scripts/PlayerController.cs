@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour {
 
     private Rigidbody2D _rigidBody;
     private Animator _anim;
+    private bool _isMoving;
+    private Vector2 _lastMove;
     
     void Start()
     {
@@ -18,6 +20,7 @@ public class PlayerController : MonoBehaviour {
     
     void FixedUpdate()
     {
+
         float moveHorizontal = Input.GetAxis ("Horizontal");
         float moveVertical = Input.GetAxis ("Vertical");
 
@@ -26,6 +29,15 @@ public class PlayerController : MonoBehaviour {
         _rigidBody.velocity = movement * Speed;
         _anim.SetFloat("MoveX", moveHorizontal);
         _anim.SetFloat("MoveY", moveVertical);
+;
+        if (movement == Vector2.zero)
+        {
+            _isMoving = false;
+        } else { _isMoving = true; }
+
+        _anim.SetBool("PlayerMoving", _isMoving);
+        _anim.SetFloat("LastX",1.0f);//for testing
+        _anim.SetFloat("LastY", 0f);//for testing
         
     }
 }
