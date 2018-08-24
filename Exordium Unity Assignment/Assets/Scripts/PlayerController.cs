@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour {
     
     void FixedUpdate()
     {
+        // TODO handle pressing two buttons at the same time later
 
         float moveHorizontal = Input.GetAxis ("Horizontal");
         float moveVertical = Input.GetAxis ("Vertical");
@@ -29,15 +30,18 @@ public class PlayerController : MonoBehaviour {
         _rigidBody.velocity = movement * Speed;
         _anim.SetFloat("MoveX", moveHorizontal);
         _anim.SetFloat("MoveY", moveVertical);
-;
+
         if (movement == Vector2.zero)
         {
             _isMoving = false;
-        } else { _isMoving = true; }
+        } else { 
+            _isMoving = true; 
+            _lastMove = movement; // if statement yazib 1, -1 zad elemek lazim ola bilerdi
+        }
 
         _anim.SetBool("PlayerMoving", _isMoving);
-        _anim.SetFloat("LastX",1.0f);//for testing
-        _anim.SetFloat("LastY", 0f);//for testing
+        _anim.SetFloat("LastX",_lastMove.x);
+        _anim.SetFloat("LastY", _lastMove.y);
         
     }
 }
